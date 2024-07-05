@@ -4,10 +4,10 @@ stages:
 
 compilar:
   stage: build
-  image: maven:3.8-openjdk-17
+  image: maven:3.8.6-openjdk-11
   cache:
     paths:
-      - .maven
+      - ./back-end/.maven
     key:
       files:
         - back-end/pom.xml
@@ -16,10 +16,10 @@ compilar:
 
 probar:
   stage: tests
-  image: maven:3.8-openjdk-17
+  image: maven:3.8.6-openjdk-11
   cache:
     paths:
-      - .maven
+      - ./back-end/.maven
     key:
       files:
         - back-end/pom.xml
