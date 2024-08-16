@@ -17,7 +17,7 @@ import javax.persistence.Table;
 public class AppUser {
 
     @Id
-    @Column(name = "id")
+    @Column(name = "app_user_id")
     private String id;
 
     @Column(name = "username", nullable = false)
