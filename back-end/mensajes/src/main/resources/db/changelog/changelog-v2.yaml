@@ -1,0 +1,272 @@
+databaseChangeLog:
+  - logicalFilePath: changelog-v1
+
+  #CHANGESET MESSAGES Y USUARIOS
+  - changeSet:
+      id: create-table-message
+      comment: Adds table message
+      author: mateo
+      changes:
+        - createTable:
+            tableName: message
+            columns:
+              - column:
+                  constraints:
+                    primaryKey: true
+                    name: PK_message
+                    nullable: false
+                  name: id
+                  type: int
+                  autoIncrement: true
+              - column:
+                  constraints:
+                    nullable: false
+                  name: owner_user_id
+                  type: varchar
+              - column:
+                  constraints:
+                    nullable: false
+                  name: target_user_id
+                  type: varchar
+              - column:
+                  constraints:
+                    nullable: false
+                  name: text
+                  type: text
+
+  - changeSet:
+      id: create-table-app_user
+      comment: Adds table app_user
+      author: mateo
+      changes:
+        - createTable:
+            tableName: app_user
+            columns:
+              - column:
+                  constraints:
+                    primaryKey: true
+                    name: PK_app_user
+                    nullable: false
+                  name: id
+                  type: varchar
+              - column:
+                  constraints:
+                    nullable: false
+                  name: username
+                  type: varchar
+              - column:
+                  constraints:
+                    nullable: false
+                  name: password
+                  type: varchar
+              - column:
+                  constraints:
+                    nullable: false
+                  name: email
+                  type: varchar
+
+  - changeSet:
+      id: add-unique-constraints-table-app_user
+      comment: Adds unique constraints in table app_user
+      author: mateo
+      changes:
+        - addUniqueConstraint:
+            columnNames: username
+            constraintName: UQ_app_user_username
+            tableName: app_user
+            validate: true
+        - addUniqueConstraint:
+            columnNames: email
+            constraintName: UQ_app_user_email
+            tableName: app_user
+            validate: true
+      
+  - changeSet:
+      id: add-foreign-key-constraints-table-message
+      comment: Add foreign key constraints in table message
+      author: mateo
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: target_user_id
+            baseTableName: message
+            constraintName: FK_message_app_user_target_user_id
+            referencedColumnNames: id
+            referencedTableName: app_user
+            validate: true
+        - addForeignKeyConstraint:
+            baseColumnNames: owner_user_id
+            baseTableName: message
+            constraintName: FK_message_app_user_owner_user_id
+            referencedColumnNames: id
+            referencedTableName: app_user
+            validate: true
+
+  #CHANGESET CARTS AND PRODUCTS
+  - changeSet:
+      id: modify-table-message-id
+      author: lucia
+      comment: Modify table message id
+      changes:
+        - renameColumn:
+            tableName: message
+            oldColumnName: id
+            newColumnName: message_id
+
+  - changeSet:
+      id: modify-table-app_user-id
+      author: lucia
+      comment: Modify table app_user id
+      changes:
+        - renameColumn:
+            tableName: app_user
+            oldColumnName: id
+            newColumnName: app_user_id
+
+  - changeSet:
+      id: create-table-cart
+      comment: Adds table cart
+      author: lucia
+      changes:
+        - createTable:
+            tableName: cart
+            columns:
+              - column:
+                  constraints:
+                    primaryKey: true
+                    name: PK_cart_id
+                    nullable: false
+                  name: cart_id
+                  type: varchar
+              - column:
+                  constraints:
+                    nullable: false
+                  name: total_price
+                  type: float
+
+  - changeSet:
+      id: add-cart_id-to-app_user
+      author: lucia
+      comment: Add cart column to app_user table with foreign key constraint
+      changes:
+        - addColumn:
+            tableName: app_user
+            columns:
+              - column:
+                  name: cart
+                  type: varchar
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: app_user
+            baseColumnNames: cart
+            referencedTableName: cart
+            referencedColumnNames: cart_id
+            constraintName: fk_cart_app_user
+
+  - changeSet:
+      id: create-table-product
+      comment: Adds table product
+      author: lucia
+      changes:
+        - createTable:
+            tableName: product
+            columns:
+              - column:
+                  constraints:
+                    primaryKey: true
+                    name: PK_product_id
+                    nullable: false
+                  name: product_id
+                  type: varchar
+              - column:
+                  constraints:
+                    nullable: false
+                  name: owner_id
+                  type: varchar
+              - column:
+                  constraints:
+                    nullable: false
+                  name: product_name
+                  type: varchar
+              - column:
+                  constraints:
+                    nullable: false
+                  name: stock
+                  type: int
+              - column:
+                  constraints:
+                    nullable: false
+                  name: unity_price
+                  type: float
+
+  - changeSet:
+      id: create-table-added_product
+      comment: Adds table added_product
+      author: lucia
+      changes:
+        - createTable:
+            tableName: added_product
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                  name: cart_id
+                  type: varchar
+              - column:
+                  constraints:
+                    nullable: false
+                  name: product_id
+                  type: varchar
+              - column:
+                  constraints:
+                    nullable: false
+                  name: quantity
+                  type: int
+              - column:
+                  constraints:
+                    nullable: false
+                  name: total_price_column
+                  type: float
+
+  - changeSet:
+      id: add-foreign-key-constraints-table-message
+      comment: Add foreign key constraints in table added_product
+      author: lucia
+      changes:
+        - addForeignKeyConstraint:
+            baseColumnNames: cart_id
+            baseTableName: added_product
+            constraintName: FK_cart_added_product_cart_id
+            referencedColumnNames: cart_id
+            referencedTableName: cart
+            validate: true
+        - addForeignKeyConstraint:
+            baseColumnNames: product_id
+            baseTableName: added_product
+            constraintName: FK_product_added_product_product_id
+            referencedColumnNames: product_id
+            referencedTableName: product
+            validate: true
+
+
+  - changeSet:
+      id: add-primary-key-constraints-table-message
+      comment: Add primary key constraints in table added_product
+      author: lucia
+      changes:
+        - addPrimaryKey:
+            columnNames: cart_id,product_id
+            tableName: added_product
+            constraintName: PK_cart_product_added_product_cart_product_id
+
+  - changeSet:
+      id: add-owner_id-to-product
+      author: lucia
+      comment: Add owner_id column to product table with foreign key constraint
+      changes:
+        - addForeignKeyConstraint:
+            baseTableName: product
+            baseColumnNames: owner_id
+            referencedTableName: app_user
+            referencedColumnNames: app_user_id
+            constraintName: fk_product_app_user
