@@ -1,5 +1,6 @@
 package ar.lamansys.messages.infrastructure.output.entity;
 
+import ar.lamansys.messages.domain.ProductBo;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -31,4 +32,12 @@ public class Product {
     @Column(name = "unity_price", nullable = false)
     private Float unityPrice;
 
+
+    public Product(ProductBo product) {
+        productId = product.getProductId();
+        ownerId = product.getOwnerId();
+        productName = product.getProductName();
+        stock = product.getStock();
+        unityPrice = product.getUnityPrice();
+    }
 }
