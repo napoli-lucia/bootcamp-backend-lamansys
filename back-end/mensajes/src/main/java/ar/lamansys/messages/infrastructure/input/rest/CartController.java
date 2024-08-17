@@ -1,2 +1,11 @@
-package ar.lamansys.messages.infrastructure.input.rest;public class CartController {
+package ar.lamansys.messages.infrastructure.input.rest;
+
+import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@AllArgsConstructor
+@RestController
+@RequestMapping("/cart")
+public class CartController {
 }
