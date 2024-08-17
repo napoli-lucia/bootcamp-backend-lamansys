@@ -1,5 +1,6 @@
 package ar.lamansys.messages.infrastructure.output.entity;
 
+import ar.lamansys.messages.domain.CartBo;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -19,4 +20,8 @@ public class Cart {
     @Id
     @Column(name = "cart_id")
     private String cartId;
+
+    public Cart(CartBo cart) {
+        cartId = cart.getCartId();
+    }
 }
