@@ -25,8 +25,13 @@ public class Cart {
     @Column(name = "owner_id", nullable = false)
     private String ownerId;
 
+    //FK
+    @Column(name = "seller_id", nullable = false)
+    private String sellerId;
+
     public Cart(CartBo cart) {
         cartId = cart.getCartId();
         ownerId = cart.getOwnerId();
+        sellerId = cart.getSellerId();
     }
 }
