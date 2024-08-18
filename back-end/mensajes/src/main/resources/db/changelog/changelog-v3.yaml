@@ -1,0 +1,31 @@
+databaseChangeLog:
+  - logicalFilePath: changelog-v3
+
+  - changeSet:
+      id: add-owner_id-to-cart
+      author: lucia
+      comment: Add owner_id column to cart table with foreign key constraint
+      changes:
+        - addColumn:
+            tableName: cart
+            columns:
+              - column:
+                  name: owner_id
+                  type: varchar
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: cart
+            baseColumnNames: owner_id
+            referencedTableName: app_user
+            referencedColumnNames: app_user_id
+            constraintName: fk_owner_id_cart
+
+  - changeSet:
+      id: delete-cart-in-app_user
+      author: lucia
+      comment: Delete cart column in app_user table
+      changes:
+        - dropColumn:
+            tableName: app_user
+            columnName: cart
