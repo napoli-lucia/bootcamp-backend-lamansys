@@ -1,5 +1,6 @@
 package ar.lamansys.messages.infrastructure.output.entity;
 
+import ar.lamansys.messages.domain.AddedProductBo;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -18,4 +19,10 @@ public class AddedProduct {
 
     @Column(name = "quantity", nullable = false)
     private Integer quantity;
+
+    public AddedProduct(AddedProductBo addedProduct) {
+        addedProductId.setProductId(addedProduct.getProductId());
+        addedProductId.setCartId(addedProduct.getCartId());
+        quantity = addedProduct.getQuantity();
+    }
 }
