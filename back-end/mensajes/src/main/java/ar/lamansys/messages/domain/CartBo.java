@@ -8,4 +8,5 @@ import lombok.Value;
 public class CartBo {
     String cartId;
     String ownerId;
+    String sellerId;
 }
