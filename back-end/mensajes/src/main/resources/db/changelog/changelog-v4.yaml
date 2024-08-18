@@ -1,0 +1,22 @@
+databaseChangeLog:
+  - logicalFilePath: changelog-v4
+
+  - changeSet:
+      id: add-seller_id-to-cart
+      author: lucia
+      comment: Add seller_id column to cart table with foreign key constraint
+      changes:
+        - addColumn:
+            tableName: cart
+            columns:
+              - column:
+                  name: seller_id
+                  type: varchar
+                  constraints:
+                    nullable: false
+        - addForeignKeyConstraint:
+            baseTableName: cart
+            baseColumnNames: seller_id
+            referencedTableName: app_user
+            referencedColumnNames: app_user_id
+            constraintName: fk_seller_id_cart
