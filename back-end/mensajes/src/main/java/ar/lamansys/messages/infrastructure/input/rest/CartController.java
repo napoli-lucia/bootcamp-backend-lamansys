@@ -2,6 +2,7 @@ package ar.lamansys.messages.infrastructure.input.rest;
 
 import ar.lamansys.messages.application.CreateCart;
 import ar.lamansys.messages.application.CreateNewProductInCart;
+import ar.lamansys.messages.application.EditProductInCart;
 import ar.lamansys.messages.application.exception.UserNotExistsException;
 import ar.lamansys.messages.application.exception.UserSessionNotExists;
 import ar.lamansys.messages.domain.NewProductBo;
@@ -18,6 +19,7 @@ public class CartController {
 
     private final CreateCart createCart;
     private final CreateNewProductInCart createNewProductInCart;
+    private final EditProductInCart editProductInCart;
 
     @PostMapping("/{ownerId}/{sellerId}")
     public ResponseEntity postNewCart(@PathVariable String ownerId, @PathVariable String sellerId, @RequestBody List<NewProductBo> newProducts) throws UserNotExistsException, UserSessionNotExists {
@@ -35,6 +37,12 @@ public class CartController {
     public ResponseEntity postNewProductInCart(@PathVariable String ownerId, @PathVariable String cartId, @RequestBody NewProductBo newProduct) {
         createNewProductInCart.run(ownerId, cartId, newProduct);
         return ResponseEntity.ok("Product added to cart successfully");
+    }
+
+    @PutMapping("/editProduct/{ownerId}/{cartId}")
+    public ResponseEntity editProductInCart(@PathVariable String ownerId, @PathVariable String cartId, @RequestBody NewProductBo editedProduct) {
+        editProductInCart.run(ownerId, cartId, editedProduct);
+        return ResponseEntity.ok("Product edited quantity in cart successfully");
     }
 
 }
