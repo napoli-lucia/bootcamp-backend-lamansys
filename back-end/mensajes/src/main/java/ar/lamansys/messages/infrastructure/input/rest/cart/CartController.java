@@ -2,6 +2,7 @@ package ar.lamansys.messages.infrastructure.input.rest.cart;
 
 import ar.lamansys.messages.application.cart.CreateCart;
 import ar.lamansys.messages.application.cart.CreateNewProductInCart;
+import ar.lamansys.messages.application.cart.DeleteProductInCart;
 import ar.lamansys.messages.application.cart.EditProductInCart;
 import ar.lamansys.messages.application.user.exception.UserNotExistsException;
 import ar.lamansys.messages.application.user.exception.UserSessionNotExists;
@@ -20,6 +21,7 @@ public class CartController {
     private final CreateCart createCart;
     private final CreateNewProductInCart createNewProductInCart;
     private final EditProductInCart editProductInCart;
+    private final DeleteProductInCart deleteProductInCart;
 
     @PostMapping("/{ownerId}/{sellerId}")
     public ResponseEntity postNewCart(@PathVariable String ownerId, @PathVariable String sellerId, @RequestBody List<NewProductBo> newProducts) throws UserNotExistsException, UserSessionNotExists {
@@ -43,6 +45,12 @@ public class CartController {
     public ResponseEntity editProductInCart(@PathVariable String ownerId, @PathVariable String cartId, @RequestBody NewProductBo editedProduct) {
         editProductInCart.run(ownerId, cartId, editedProduct);
         return ResponseEntity.ok("Product edited quantity in cart successfully");
+    }
+
+    @DeleteMapping("/deleteProduct/{ownerId}/{cartId}/{productId}")
+    public ResponseEntity deleteProductInCart(@PathVariable String ownerId, @PathVariable String cartId, @PathVariable String productId) {
+        deleteProductInCart.run(ownerId, cartId, productId);
+        return ResponseEntity.ok("Product in cart deleted successfully");
     }
 
 }
