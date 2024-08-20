@@ -1,8 +1,8 @@
 package ar.lamansys.messages;
 
-import ar.lamansys.messages.application.exception.UserExistsException;
-import ar.lamansys.messages.application.exception.UserNotExistsException;
-import ar.lamansys.messages.application.exception.UserSessionNotExists;
+import ar.lamansys.messages.application.user.exception.UserExistsException;
+import ar.lamansys.messages.application.user.exception.UserNotExistsException;
+import ar.lamansys.messages.application.user.exception.UserSessionNotExists;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

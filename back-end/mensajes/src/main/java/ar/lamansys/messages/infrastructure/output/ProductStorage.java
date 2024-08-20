@@ -1,6 +1,6 @@
 package ar.lamansys.messages.infrastructure.output;
 
-import ar.lamansys.messages.domain.ProductBo;
+import ar.lamansys.messages.domain.product.ProductBo;
 import ar.lamansys.messages.infrastructure.output.entity.Product;
 
 import java.util.Optional;

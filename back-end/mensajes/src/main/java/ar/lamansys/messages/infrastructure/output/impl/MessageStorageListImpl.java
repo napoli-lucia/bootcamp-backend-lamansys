@@ -14,7 +14,7 @@ import java.util.stream.Stream;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import ar.lamansys.messages.domain.MessageStoredBo;
+import ar.lamansys.messages.domain.message.MessageStoredBo;
 import ar.lamansys.messages.infrastructure.output.MessageStorage;
 import org.springframework.stereotype.Repository;
 

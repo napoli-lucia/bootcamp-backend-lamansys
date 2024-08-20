@@ -6,11 +6,13 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.List;
 
+import ar.lamansys.messages.application.message.ListContacts;
+import ar.lamansys.messages.application.user.GetUserSession;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import ar.lamansys.messages.application.exception.UserSessionNotExists;
-import ar.lamansys.messages.domain.MessageStoredBo;
+import ar.lamansys.messages.application.user.exception.UserSessionNotExists;
+import ar.lamansys.messages.domain.message.MessageStoredBo;
 import ar.lamansys.messages.infrastructure.output.MessageStorage;
 
 class ListContactsTest {

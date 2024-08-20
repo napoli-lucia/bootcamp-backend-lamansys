@@ -2,7 +2,7 @@ package ar.lamansys.messages.infrastructure.output;
 
 import java.util.stream.Stream;
 
-import ar.lamansys.messages.domain.MessageStoredBo;
+import ar.lamansys.messages.domain.message.MessageStoredBo;
 
 public interface MessageStorage {
 

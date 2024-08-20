@@ -1,6 +1,7 @@
 package ar.lamansys.messages.application;
 
-import ar.lamansys.messages.application.exception.UserExistsException;
+import ar.lamansys.messages.application.user.exception.UserExistsException;
+import ar.lamansys.messages.application.user.AssertUserNotExists;
 import ar.lamansys.messages.infrastructure.output.UserStorage;
 
 import org.junit.jupiter.api.Test;

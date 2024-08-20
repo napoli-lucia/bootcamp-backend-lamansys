@@ -6,10 +6,10 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import ar.lamansys.messages.application.exception.UserExistsException;
-import ar.lamansys.messages.application.exception.UserNotExistsException;
-import ar.lamansys.messages.application.exception.UserSessionNotExists;
-import ar.lamansys.messages.domain.NewMessageBo;
+import ar.lamansys.messages.application.user.exception.UserExistsException;
+import ar.lamansys.messages.application.user.exception.UserNotExistsException;
+import ar.lamansys.messages.application.user.exception.UserSessionNotExists;
+import ar.lamansys.messages.domain.message.NewMessageBo;
 
 class AppTest {
 
