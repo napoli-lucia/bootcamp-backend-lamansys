@@ -1,6 +1,6 @@
 package ar.lamansys.messages.infrastructure.output;
 
-import ar.lamansys.messages.domain.CartBo;
+import ar.lamansys.messages.domain.cart.CartBo;
 
 public interface CartStorage {
 

@@ -1,6 +1,6 @@
 package ar.lamansys.messages.infrastructure.output.entity;
 
-import ar.lamansys.messages.domain.CartBo;
+import ar.lamansys.messages.domain.cart.CartBo;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

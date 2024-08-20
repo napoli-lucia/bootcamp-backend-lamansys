@@ -1,9 +1,12 @@
 package ar.lamansys.messages.application;
 
-import ar.lamansys.messages.application.exception.UserNotExistsException;
-import ar.lamansys.messages.application.exception.UserSessionNotExists;
-import ar.lamansys.messages.domain.ChatMessageBo;
-import ar.lamansys.messages.domain.MessageStoredBo;
+import ar.lamansys.messages.application.user.exception.UserNotExistsException;
+import ar.lamansys.messages.application.user.exception.UserSessionNotExists;
+import ar.lamansys.messages.application.message.FetchUserChat;
+import ar.lamansys.messages.application.user.AssertUserExists;
+import ar.lamansys.messages.application.user.GetUserSession;
+import ar.lamansys.messages.domain.message.ChatMessageBo;
+import ar.lamansys.messages.domain.message.MessageStoredBo;
 import ar.lamansys.messages.infrastructure.output.MessageStorage;
 
 import org.junit.jupiter.api.BeforeEach;

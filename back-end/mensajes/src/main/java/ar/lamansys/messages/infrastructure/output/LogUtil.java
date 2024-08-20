@@ -3,7 +3,7 @@ package ar.lamansys.messages.infrastructure.output;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import ar.lamansys.messages.domain.ChatMessageBo;
+import ar.lamansys.messages.domain.message.ChatMessageBo;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

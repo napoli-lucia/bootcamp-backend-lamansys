@@ -2,18 +2,18 @@ package ar.lamansys;
 
 import java.util.List;
 
-import ar.lamansys.messages.application.AddUser;
+import ar.lamansys.messages.application.user.AddUser;
 import ar.lamansys.messages.application.ClearData;
-import ar.lamansys.messages.application.FetchUserChat;
-import ar.lamansys.messages.application.GetUserSession;
-import ar.lamansys.messages.application.ListContacts;
-import ar.lamansys.messages.application.SendUserMessage;
-import ar.lamansys.messages.application.SetUserSession;
-import ar.lamansys.messages.application.exception.UserExistsException;
-import ar.lamansys.messages.application.exception.UserNotExistsException;
-import ar.lamansys.messages.application.exception.UserSessionNotExists;
-import ar.lamansys.messages.domain.ChatMessageBo;
-import ar.lamansys.messages.domain.NewMessageBo;
+import ar.lamansys.messages.application.message.FetchUserChat;
+import ar.lamansys.messages.application.user.GetUserSession;
+import ar.lamansys.messages.application.message.ListContacts;
+import ar.lamansys.messages.application.message.SendUserMessage;
+import ar.lamansys.messages.application.user.SetUserSession;
+import ar.lamansys.messages.application.user.exception.UserExistsException;
+import ar.lamansys.messages.application.user.exception.UserNotExistsException;
+import ar.lamansys.messages.application.user.exception.UserSessionNotExists;
+import ar.lamansys.messages.domain.message.ChatMessageBo;
+import ar.lamansys.messages.domain.message.NewMessageBo;
 import lombok.AllArgsConstructor;
 
 

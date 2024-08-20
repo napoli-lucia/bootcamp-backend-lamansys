@@ -1,6 +1,6 @@
 package ar.lamansys.messages.infrastructure.output.impl;
 
-import ar.lamansys.messages.domain.ProductBo;
+import ar.lamansys.messages.domain.product.ProductBo;
 import ar.lamansys.messages.infrastructure.output.ProductStorage;
 import ar.lamansys.messages.infrastructure.output.entity.Product;
 import ar.lamansys.messages.infrastructure.output.repository.ProductRepository;

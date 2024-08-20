@@ -9,7 +9,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-import ar.lamansys.messages.domain.MessageStoredBo;
+import ar.lamansys.messages.domain.message.MessageStoredBo;
 import ar.lamansys.messages.infrastructure.output.entity.Message;
 
 @DataJpaTest(showSql = false)
