@@ -15,4 +15,8 @@ public interface ProductStorage {
     Optional<Product> getProductByProductId(String productId);
 
     Stream<ProductBo> getAllProductsByUserId(String userId);
+
+    int getStockByProductId(String productId);
+
+    float getUnityPriceByProductId(String productId);
 }
