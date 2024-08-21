@@ -1,12 +1,10 @@
 package ar.lamansys.messages.infrastructure.input.rest.cart;
 
-import ar.lamansys.messages.application.cart.CreateCart;
-import ar.lamansys.messages.application.cart.CreateNewProductInCart;
-import ar.lamansys.messages.application.cart.DeleteProductInCart;
-import ar.lamansys.messages.application.cart.EditProductInCart;
+import ar.lamansys.messages.application.cart.*;
 import ar.lamansys.messages.application.user.exception.UserNotExistsException;
 import ar.lamansys.messages.application.user.exception.UserSessionNotExists;
 import ar.lamansys.messages.domain.addedproduct.NewProductBo;
+import ar.lamansys.messages.domain.cart.CartStateBo;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +20,7 @@ public class CartController {
     private final CreateNewProductInCart createNewProductInCart;
     private final EditProductInCart editProductInCart;
     private final DeleteProductInCart deleteProductInCart;
+    private final GetCartState getCartState;
 
     @PostMapping("/{ownerId}/{sellerId}")
     public ResponseEntity postNewCart(@PathVariable String ownerId, @PathVariable String sellerId, @RequestBody List<NewProductBo> newProducts) throws UserNotExistsException, UserSessionNotExists {
@@ -51,6 +50,11 @@ public class CartController {
     public ResponseEntity deleteProductInCart(@PathVariable String ownerId, @PathVariable String cartId, @PathVariable String productId) {
         deleteProductInCart.run(ownerId, cartId, productId);
         return ResponseEntity.ok("Product in cart deleted successfully");
+    }
+
+    @GetMapping("/state/{ownerId}/{cartId}")
+    public CartStateBo getCartState(@PathVariable String ownerId, @PathVariable String cartId) {
+        return getCartState.run(ownerId, cartId);
     }
 
 }
