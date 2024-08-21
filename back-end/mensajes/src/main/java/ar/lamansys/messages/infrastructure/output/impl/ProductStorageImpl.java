@@ -38,4 +38,14 @@ public class ProductStorageImpl implements ProductStorage {
     public Stream<ProductBo> getAllProductsByUserId(String userId) {
         return productRepository.findAllByOwnerId(userId);
     }
+
+    @Override
+    public int getStockByProductId(String productId) {
+        return productRepository.findById(productId).get().getStock();
+    }
+
+    @Override
+    public float getUnityPriceByProductId(String productId) {
+        return productRepository.findById(productId).get().getUnityPrice();
+    }
 }
