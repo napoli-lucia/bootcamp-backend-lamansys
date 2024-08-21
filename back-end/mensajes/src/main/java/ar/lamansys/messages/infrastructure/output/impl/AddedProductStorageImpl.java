@@ -8,6 +8,9 @@ import ar.lamansys.messages.infrastructure.output.repository.AddedProductReposit
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Stream;
+
 @RequiredArgsConstructor
 @Service
 public class AddedProductStorageImpl implements AddedProductStorage {
@@ -22,5 +25,10 @@ public class AddedProductStorageImpl implements AddedProductStorage {
     @Override
     public void delete(AddedProductId addedProductId) {
         addedProductRepository.deleteById(addedProductId);
+    }
+
+    @Override
+    public List<AddedProduct> findAllByCartId(String cartId) {
+        return addedProductRepository.findAllByCartId(cartId);
     }
 }
