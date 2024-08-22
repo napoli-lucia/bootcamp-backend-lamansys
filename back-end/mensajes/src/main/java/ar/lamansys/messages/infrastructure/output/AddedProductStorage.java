@@ -15,4 +15,6 @@ public interface AddedProductStorage {
 
     List<AddedProduct> findAllByCartId(String cartId);
 
+    boolean exists(AddedProductId addedProductId);
+
 }

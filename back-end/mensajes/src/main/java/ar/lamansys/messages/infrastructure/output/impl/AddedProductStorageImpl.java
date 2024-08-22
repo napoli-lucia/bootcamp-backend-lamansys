@@ -31,4 +31,9 @@ public class AddedProductStorageImpl implements AddedProductStorage {
     public List<AddedProduct> findAllByCartId(String cartId) {
         return addedProductRepository.findAllByCartId(cartId);
     }
+
+    @Override
+    public boolean exists(AddedProductId addedProductId) {
+        return addedProductRepository.existsById(addedProductId);
+    }
 }
