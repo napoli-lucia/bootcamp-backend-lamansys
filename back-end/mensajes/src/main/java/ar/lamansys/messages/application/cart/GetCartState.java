@@ -1,5 +1,9 @@
 package ar.lamansys.messages.application.cart;
 
+import ar.lamansys.messages.application.cart.exception.CartNotExistsException;
+import ar.lamansys.messages.application.cart.exception.UserNotOwnsCartException;
+import ar.lamansys.messages.application.user.AssertUserExists;
+import ar.lamansys.messages.application.user.exception.UserNotExistsException;
 import ar.lamansys.messages.domain.cart.CartStateBo;
 import ar.lamansys.messages.domain.product.ProductStateBo;
 import ar.lamansys.messages.infrastructure.output.AddedProductStorage;
@@ -17,19 +21,21 @@ public class GetCartState {
 
     private final AddedProductStorage addedProduct;
     private final ProductStorage productStorage;
+    private final AssertUserExists assertUserExists;
+    private final AssertCartExists assertCartExists;
+    private final AssertUserOwnsCart assertUserOwnsCart;
 
-    public CartStateBo run(String ownerId, String cartId) {
+    public CartStateBo run(String ownerId, String cartId) throws UserNotExistsException, CartNotExistsException, UserNotOwnsCartException {
+
+        assertUserExists.run(ownerId);
+        assertCartExists.run(cartId);
+        assertUserOwnsCart.run(cartId, ownerId);
 
         Float totalPrice = 0.0f;
         List<String> leftOut = new ArrayList<>();
         List<ProductStateBo> generalInfo = new ArrayList<>();
 
-        // Lanzan error
-        //TODO: Verificar que el carrito exista
-        //TODO: Verificar que el carrito sea del ownerId
-
         List<AddedProduct> products = addedProduct.findAllByCartId(cartId);
-
 
         //Verifica que el stock sea suficiente. Sino agrega en leftOut
         for (AddedProduct product : products) {
