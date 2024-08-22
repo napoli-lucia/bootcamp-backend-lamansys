@@ -3,7 +3,7 @@ package ar.lamansys.messages.application.user.exception;
 import lombok.Getter;
 
 @Getter
-public class UserExistsException extends Throwable {
+public class UserExistsException extends Exception {
     String userId;
 
     public UserExistsException(String userId) {
