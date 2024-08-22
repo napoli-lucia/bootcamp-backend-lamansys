@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Primary
 @RequiredArgsConstructor
 @Service
@@ -23,5 +25,15 @@ public class CartStorageImpl implements CartStorage {
     @Override
     public void delete(String cartId) {
         cartRepository.deleteById(cartId);
+    }
+
+    @Override
+    public boolean exists(String cartId) {
+        return cartRepository.existsById(cartId);
+    }
+
+    @Override
+    public Optional<Cart> getById(String cartId) {
+        return cartRepository.findById(cartId);
     }
 }
