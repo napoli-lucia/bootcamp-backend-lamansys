@@ -1,6 +1,5 @@
 package ar.lamansys.messages.application.cart;
 
-import ar.lamansys.messages.application.cart.exception.CartNotExistsException;
 import ar.lamansys.messages.application.cart.exception.UserNotOwnsCartException;
 import ar.lamansys.messages.infrastructure.output.CartStorage;
 import lombok.AllArgsConstructor;
@@ -9,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 @AllArgsConstructor
 @Service
-public class UserOwnsCart {
+public class AssertUserOwnsCart {
 
     private CartStorage cartStorage;
 
