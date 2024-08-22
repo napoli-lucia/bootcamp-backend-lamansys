@@ -1,5 +1,11 @@
 package ar.lamansys.messages.application.cart;
 
+import ar.lamansys.messages.application.cart.exception.CartNotExistsException;
+import ar.lamansys.messages.application.cart.exception.ProductNotExistsInCartException;
+import ar.lamansys.messages.application.cart.exception.ProductStockNotEnough;
+import ar.lamansys.messages.application.cart.exception.UserNotOwnsCartException;
+import ar.lamansys.messages.application.user.AssertUserExists;
+import ar.lamansys.messages.application.user.exception.UserNotExistsException;
 import ar.lamansys.messages.domain.addedproduct.AddedProductBo;
 import ar.lamansys.messages.domain.addedproduct.NewProductBo;
 import ar.lamansys.messages.infrastructure.output.AddedProductStorage;
@@ -12,12 +18,20 @@ public class EditProductInCart {
 
     private final AddedProductStorage addedProduct;
 
-    public void run(String ownerId, String cartId, NewProductBo editedProduct) {
+    private final AssertUserExists assertUserExists;
+    private final AssertCartExists assertCartExists;
+    private final AssertUserOwnsCart assertUserOwnsCart;
+    private final AssertProductStockEnough assertProductStockEnough;
+    private final AssertProductExistsInCart assertProductExistsInCart;
 
-        //TODO: Verificar que el carrito exista
-        //TODO: Verificar que el carrito sea del ownerId
-        //TODO: Verificar que el producto exista en el carrito
-        //TODO: Verificar que el stock sea suficiente
+    public void run(String ownerId, String cartId, NewProductBo editedProduct) throws
+            UserNotExistsException, CartNotExistsException, UserNotOwnsCartException, ProductNotExistsInCartException, ProductStockNotEnough {
+
+        assertUserExists.run(ownerId);
+        assertCartExists.run(cartId);
+        assertUserOwnsCart.run(cartId, ownerId);
+        assertProductExistsInCart.run(cartId, editedProduct.getProductId());
+        assertProductStockEnough.run(editedProduct.getProductId(), editedProduct.getQuantity());
 
         addedProduct.save(new AddedProductBo(cartId, editedProduct.getProductId(), editedProduct.getQuantity()));
 
