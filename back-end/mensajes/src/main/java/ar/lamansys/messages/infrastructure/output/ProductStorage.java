@@ -19,4 +19,8 @@ public interface ProductStorage {
     int getStockByProductId(String productId);
 
     float getUnityPriceByProductId(String productId);
+
+    String getOwnerByProductId(String productId);
+
+    boolean exists(String productId);
 }

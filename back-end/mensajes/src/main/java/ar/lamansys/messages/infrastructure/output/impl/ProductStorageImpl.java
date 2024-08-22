@@ -48,4 +48,14 @@ public class ProductStorageImpl implements ProductStorage {
     public float getUnityPriceByProductId(String productId) {
         return productRepository.findById(productId).get().getUnityPrice();
     }
+
+    @Override
+    public String getOwnerByProductId(String productId) {
+        return productRepository.findById(productId).get().getOwnerId();
+    }
+
+    @Override
+    public boolean exists(String productId) {
+        return productRepository.existsById(productId);
+    }
 }
