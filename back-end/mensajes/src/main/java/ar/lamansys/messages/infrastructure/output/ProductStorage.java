@@ -23,4 +23,6 @@ public interface ProductStorage {
     String getOwnerByProductId(String productId);
 
     boolean exists(String productId);
+
+    void updateStock(String productId, Integer quantity);
 }

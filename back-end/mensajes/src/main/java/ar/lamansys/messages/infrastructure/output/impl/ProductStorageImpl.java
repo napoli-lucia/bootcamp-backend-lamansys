@@ -58,4 +58,11 @@ public class ProductStorageImpl implements ProductStorage {
     public boolean exists(String productId) {
         return productRepository.existsById(productId);
     }
+
+    @Override
+    public void updateStock(String productId, Integer quantity) {
+        Optional<Product> product = productRepository.findById(productId);
+        product.get().setStock(product.get().getStock() - quantity);
+        productRepository.save(product.get());
+    }
 }
