@@ -22,6 +22,7 @@ public class CartController {
     private final EditProductInCart editProductInCart;
     private final DeleteProductInCart deleteProductInCart;
     private final GetCartState getCartState;
+    private final PurchaseCart purchaseCart;
 
     @PostMapping("/{ownerId}/{sellerId}")
     public CartCreationBo postNewCart(@PathVariable String ownerId,
@@ -62,6 +63,13 @@ public class CartController {
     public CartStateBo getCartState(@PathVariable String ownerId, @PathVariable String cartId) throws
             CartNotExistsException, UserNotExistsException, UserNotOwnsCartException {
         return getCartState.run(ownerId, cartId);
+    }
+
+    @GetMapping("/purchase/{ownerId}/{cartId}")
+    public ResponseEntity purchaseCart(@PathVariable String ownerId, @PathVariable String cartId) throws
+            CartNotExistsException, UserNotExistsException, UserNotOwnsCartException, MultipleExceptions {
+        Float totalPrice = purchaseCart.run(ownerId, cartId);
+        return ResponseEntity.ok(String.format("Cart purchase successfully. Total price: %s",totalPrice));
     }
 
 }
