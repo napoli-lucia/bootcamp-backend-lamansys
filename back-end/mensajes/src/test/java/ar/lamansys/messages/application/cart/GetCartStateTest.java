@@ -10,7 +10,6 @@ import ar.lamansys.messages.domain.product.ProductStateBo;
 import ar.lamansys.messages.infrastructure.output.AddedProductStorage;
 import ar.lamansys.messages.infrastructure.output.ProductStorage;
 import ar.lamansys.messages.infrastructure.output.entity.AddedProduct;
-import ar.lamansys.messages.infrastructure.output.entity.AddedProductId;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,7 +19,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;

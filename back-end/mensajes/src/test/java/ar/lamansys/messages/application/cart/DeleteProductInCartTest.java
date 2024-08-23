@@ -7,7 +7,6 @@ import ar.lamansys.messages.application.user.AssertUserExists;
 import ar.lamansys.messages.application.user.exception.UserNotExistsException;
 import ar.lamansys.messages.infrastructure.output.AddedProductStorage;
 import ar.lamansys.messages.infrastructure.output.entity.AddedProductId;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -33,11 +32,6 @@ public class DeleteProductInCartTest {
 
     @InjectMocks
     private DeleteProductInCart deleteProductInCart;
-
-    @BeforeEach
-    public void setUp() {
-        // Initialize mocks and set up any common test data if necessary
-    }
 
     @Test
     public void testUserNotExistsException() throws UserNotExistsException {

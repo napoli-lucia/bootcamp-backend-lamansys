@@ -7,13 +7,10 @@ import ar.lamansys.messages.application.cart.exception.UserNotOwnsCartException;
 import ar.lamansys.messages.application.user.AssertUserExists;
 import ar.lamansys.messages.application.user.exception.UserNotExistsException;
 import ar.lamansys.messages.domain.addedproduct.AddedProductBo;
-import ar.lamansys.messages.domain.cart.CartStateBo;
-import ar.lamansys.messages.domain.product.ProductStateBo;
 import ar.lamansys.messages.infrastructure.output.AddedProductStorage;
 import ar.lamansys.messages.infrastructure.output.CartStorage;
 import ar.lamansys.messages.infrastructure.output.ProductStorage;
 import ar.lamansys.messages.infrastructure.output.entity.AddedProduct;
-import lombok.AllArgsConstructor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -21,9 +18,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;

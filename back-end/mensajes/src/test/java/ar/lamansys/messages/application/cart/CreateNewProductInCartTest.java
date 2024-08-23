@@ -6,9 +6,6 @@ import ar.lamansys.messages.application.user.exception.UserNotExistsException;
 import ar.lamansys.messages.domain.addedproduct.AddedProductBo;
 import ar.lamansys.messages.domain.addedproduct.NewProductBo;
 import ar.lamansys.messages.infrastructure.output.AddedProductStorage;
-import ar.lamansys.messages.infrastructure.output.CartStorage;
-import ar.lamansys.messages.infrastructure.output.ProductStorage;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -38,11 +35,6 @@ public class CreateNewProductInCartTest {
 
     @InjectMocks
     private CreateNewProductInCart createNewProductInCart;
-
-    @BeforeEach
-    public void setUp() {
-        // Initialize mocks and set up any common test data if necessary
-    }
 
     @Test
     public void testUserNotExistsException() throws Exception {
