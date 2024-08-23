@@ -17,4 +17,5 @@ public interface AddedProductStorage {
 
     boolean exists(AddedProductId addedProductId);
 
+    void deleteAllByCartId(String cartId);
 }

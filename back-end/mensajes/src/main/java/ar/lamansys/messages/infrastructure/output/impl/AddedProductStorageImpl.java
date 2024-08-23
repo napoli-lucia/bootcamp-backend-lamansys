@@ -36,4 +36,9 @@ public class AddedProductStorageImpl implements AddedProductStorage {
     public boolean exists(AddedProductId addedProductId) {
         return addedProductRepository.existsById(addedProductId);
     }
+
+    @Override
+    public void deleteAllByCartId(String cartId) {
+        addedProductRepository.deleteAllByCartId(cartId);
+    }
 }
