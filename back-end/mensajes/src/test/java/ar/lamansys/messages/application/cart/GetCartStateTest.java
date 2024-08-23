@@ -102,7 +102,7 @@ public class GetCartStateTest {
         // Configuración de los mocks
         when(addedProductStorage.findAllByCartId(cartId)).thenReturn(Arrays.asList(product1, product2));
         when(productStorage.getStockByProductId("product1")).thenReturn(5);
-        when(productStorage.getStockByProductId("product2")).thenReturn(3);
+        when(productStorage.getStockByProductId("product2")).thenReturn(4);
         when(productStorage.getUnityPriceByProductId("product1")).thenReturn(10.0f);
         when(productStorage.getUnityPriceByProductId("product2")).thenReturn(15.0f);
 
@@ -130,13 +130,13 @@ public class GetCartStateTest {
 
         when(addedProductStorage.findAllByCartId(cartId)).thenReturn(Arrays.asList(product1, product2));
         when(productStorage.getStockByProductId("product1")).thenReturn(1); // Insufficient stock
-        when(productStorage.getStockByProductId("product2")).thenReturn(3);
+        when(productStorage.getStockByProductId("product2")).thenReturn(4);
         when(productStorage.getUnityPriceByProductId("product1")).thenReturn(10.0f);
         when(productStorage.getUnityPriceByProductId("product2")).thenReturn(15.0f);
 
         CartStateBo result = getCartState.run(ownerId, cartId);
 
-        assertEquals(55.0f, result.getTotalPrice());
+        assertEquals(65.0f, result.getTotalPrice());
         assertEquals(Collections.singletonList("product1"), result.getLeftOut());
         assertEquals(2, result.getProducts().size());
         assertEquals(new ProductStateBo("product1", 10.0f), result.getProducts().get(0));

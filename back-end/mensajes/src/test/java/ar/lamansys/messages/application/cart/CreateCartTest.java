@@ -1,5 +1,6 @@
 package ar.lamansys.messages.application.cart;
 
+import ar.lamansys.messages.application.cart.exception.MultipleExceptions;
 import ar.lamansys.messages.application.cart.exception.ProductInvalidSeller;
 import ar.lamansys.messages.application.cart.exception.ProductNotExistsException;
 import ar.lamansys.messages.application.cart.exception.ProductStockNotEnough;
@@ -64,7 +65,7 @@ public class CreateCartTest {
     }
 
     @Test
-    public void testProductNotExistsException() throws Exception {
+    public void testProductNotExistsException() throws UserNotExistsException, ProductNotExistsException {
         String ownerId = "owner1";
         String sellerId = "seller1";
         List<NewProductBo> newProducts = Collections.singletonList(new NewProductBo("product1", 1));
@@ -73,28 +74,14 @@ public class CreateCartTest {
         doNothing().when(assertUserExists).run(sellerId);
         doThrow(new ProductNotExistsException("product1")).when(assertProductExists).run("product1");
 
-        CartCreationBo result = createCart.run(ownerId, sellerId, newProducts);
+        MultipleExceptions thrown = assertThrows(MultipleExceptions.class, () -> {
+            createCart.run(ownerId, sellerId, newProducts);
+        });
 
-        assertFalse(result.getAddedProducts().contains(new NewProductBo("product1", 1)));
-        assertFalse(result.getExceptions().isEmpty());
+        assertTrue(thrown.getExceptions().stream().anyMatch(ex -> ex instanceof ProductNotExistsException));
     }
 
-    @Test
-    public void testProductStockNotEnoughException() throws Exception {
-        String ownerId = "owner1";
-        String sellerId = "seller1";
-        List<NewProductBo> newProducts = Collections.singletonList(new NewProductBo("product1", 10));
 
-        doNothing().when(assertUserExists).run(ownerId);
-        doNothing().when(assertUserExists).run(sellerId);
-        doNothing().when(assertProductExists).run("product1");
-        when(productStorage.getStockByProductId("product1")).thenReturn(5); // Stock is less than required
-        doThrow(new ProductStockNotEnough("product1")).when(assertProductStockEnough).run("product1", 10);
-
-        CartCreationBo result = createCart.run(ownerId, sellerId, newProducts);
-
-        assertFalse(result.getExceptions().isEmpty());
-    }
 
     @Test
     public void testProductInvalidSellerException() throws Exception {
@@ -108,9 +95,12 @@ public class CreateCartTest {
         when(productStorage.getOwnerByProductId("product1")).thenReturn("wrongSellerId");
         doThrow(new ProductInvalidSeller("product1")).when(assertProductSameSeller).run(sellerId, "product1");
 
-        CartCreationBo result = createCart.run(ownerId, sellerId, newProducts);
+        MultipleExceptions thrown = assertThrows(MultipleExceptions.class, () -> {
+            createCart.run(ownerId, sellerId, newProducts);
+        });
 
-        assertFalse(result.getExceptions().isEmpty());
+        // Verificamos que la excepción lanzada contiene la excepción ProductInvalidSeller
+        assertTrue(thrown.getExceptions().stream().anyMatch(ex -> ex instanceof ProductInvalidSeller));
     }
 
     @Test

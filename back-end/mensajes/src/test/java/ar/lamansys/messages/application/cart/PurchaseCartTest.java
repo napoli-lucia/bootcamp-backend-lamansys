@@ -68,9 +68,9 @@ public class PurchaseCartTest {
         doNothing().when(assertUserExists).run(ownerId);
         doNothing().when(assertCartExists).run(cartId);
         doNothing().when(assertUserOwnsCart).run(cartId, ownerId);
+
+        // Los productos ya están inicializados en el setup
         when(addedProductStorage.findAllByCartId(cartId)).thenReturn(Arrays.asList(product1, product2));
-        when(productStorage.getStockByProductId("product1")).thenReturn(10);
-        when(productStorage.getStockByProductId("product2")).thenReturn(5);
         when(productStorage.getUnityPriceByProductId("product1")).thenReturn(10.0f);
         when(productStorage.getUnityPriceByProductId("product2")).thenReturn(20.0f);
 
@@ -78,12 +78,13 @@ public class PurchaseCartTest {
         float totalPrice = purchaseCart.run(ownerId, cartId);
 
         // Verificaciones
-        assertEquals(2 * 10.0f + 3 * 20.0f, totalPrice);
+        assertEquals(2 * 10.0f + 3 * 20.0f, totalPrice, 0.001); // Agregamos un delta para comparación de floats
         verify(addedProductStorage).deleteAllByCartId(cartId);
         verify(cartStorage).delete(cartId);
         verify(productStorage).updateStock("product1", 2);
         verify(productStorage).updateStock("product2", 3);
     }
+
 
     @Test
     public void testProductStockNotEnough() throws Exception {
@@ -91,21 +92,26 @@ public class PurchaseCartTest {
         doNothing().when(assertUserExists).run(ownerId);
         doNothing().when(assertCartExists).run(cartId);
         doNothing().when(assertUserOwnsCart).run(cartId, ownerId);
-        when(addedProductStorage.findAllByCartId(cartId)).thenReturn(Arrays.asList(product1, product2));
-        when(productStorage.getStockByProductId("product1")).thenReturn(1); // Stock insuficiente
-        when(productStorage.getStockByProductId("product2")).thenReturn(5);
-        when(productStorage.getUnityPriceByProductId("product1")).thenReturn(10.0f);
-        when(productStorage.getUnityPriceByProductId("product2")).thenReturn(20.0f);
+
+        // Configura el comportamiento esperado cuando se detecta un stock insuficiente
         doThrow(new ProductStockNotEnough("product1")).when(assertProductStockEnough).run("product1", 2);
 
-        // Ejecutar el método bajo prueba
+        // Configuración de los datos que se utilizarán
+        when(addedProductStorage.findAllByCartId(cartId)).thenReturn(Arrays.asList(product1, product2));
+        when(productStorage.getUnityPriceByProductId("product2")).thenReturn(20.0f);
+
+        // Ejecutar el método bajo prueba y capturar la excepción
         MultipleExceptions thrown = assertThrows(MultipleExceptions.class, () ->
                 purchaseCart.run(ownerId, cartId));
 
         // Verificación de las excepciones
         assertEquals(1, thrown.getExceptions().size());
         assertTrue(thrown.getExceptions().get(0) instanceof ProductStockNotEnough);
+        assertEquals("product1", ((ProductStockNotEnough) thrown.getExceptions().get(0)).getProductId());
     }
+
+
+
 
     @Test
     public void testCartNotExistsException() throws Exception {
