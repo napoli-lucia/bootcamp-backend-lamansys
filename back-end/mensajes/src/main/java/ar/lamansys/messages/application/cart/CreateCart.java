@@ -49,10 +49,12 @@ public class CreateCart {
                 exceptions.add(e);
             }
 
+
             try {
                 if(productStorage.exists(newProduct.getProductId())) assertProductSameSeller.run(sellerId, newProduct.getProductId());
             } catch (ProductInvalidSeller e) {
                 exceptions.add(e);
+                continue;
             }
 
             try {
@@ -67,16 +69,16 @@ public class CreateCart {
             }
         }
 
+        if (!exceptions.isEmpty() && availableProducts.isEmpty()){
+            throw new MultipleExceptions(exceptions);
+        }
+
         //Agrego productos disponibles
         String cartId = UUID.randomUUID().toString();
         cartStorage.save(new CartBo(cartId, ownerId, sellerId));
 
         for (NewProductBo newProduct : availableProducts) {
             addedProduct.save(new AddedProductBo(cartId, newProduct.getProductId(), newProduct.getQuantity()));
-        }
-
-        if (!exceptions.isEmpty() && availableProducts.isEmpty()){
-            throw new MultipleExceptions(exceptions);
         }
 
         List<String> exceptionMessages = exceptions.stream()
