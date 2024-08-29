@@ -11,8 +11,9 @@ public class AssertProductStockEnough {
 
     private ProductStorage productStorage;
 
+    //@revision cuidado: con tener excepciones no chequeadas
     public void run(String productId, int quantity) throws ProductStockNotEnough {
-        if ( productStorage.getStockByProductId(productId) < quantity) {
+        if ( productStorage.getStockByProductId(productId) < quantity) {//tira excepcion si no existe
             throw new ProductStockNotEnough(productId);
         }
     }

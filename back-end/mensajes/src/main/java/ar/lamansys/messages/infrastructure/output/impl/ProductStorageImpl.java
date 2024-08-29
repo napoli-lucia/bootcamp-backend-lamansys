@@ -29,6 +29,10 @@ public class ProductStorageImpl implements ProductStorage {
     }
 
     //Consultar si es recomendable que sea un optional para despues devolver el error
+    /*@revision
+     * Muchas veces devolver directamente el Optinal
+     * le deja a quien lo usa mayor "maniobrabilidad" que una excepcion
+     */
     @Override
     public Optional<Product> getProductByProductId(String productId) {
         return productRepository.findById(productId);
@@ -39,6 +43,7 @@ public class ProductStorageImpl implements ProductStorage {
         return productRepository.findAllByOwnerId(userId);
     }
 
+    //@revision estaria bueno armar una query que solo traiga el dato requerido
     @Override
     public int getStockByProductId(String productId) {
         return productRepository.findById(productId).get().getStock();
@@ -49,6 +54,8 @@ public class ProductStorageImpl implements ProductStorage {
         return productRepository.findById(productId).get().getUnityPrice();
     }
 
+    //@revision Se podria hacer una consulta que solo traiga el id 
+    //@revision si el el producto no existe se va a lanzar una excepcion NoSuchElementException
     @Override
     public String getOwnerByProductId(String productId) {
         return productRepository.findById(productId).get().getOwnerId();
@@ -59,6 +66,9 @@ public class ProductStorageImpl implements ProductStorage {
         return productRepository.existsById(productId);
     }
 
+
+    //@revision evitar utilizar reglas de negocio en el storage
+    //podria pasar product.get().getStock() - quantity ya ese resultado
     @Override
     public void updateStock(String productId, Integer quantity) {
         Optional<Product> product = productRepository.findById(productId);

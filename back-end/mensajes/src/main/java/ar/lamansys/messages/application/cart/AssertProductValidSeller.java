@@ -14,8 +14,10 @@ public class AssertProductValidSeller {
     private ProductStorage productStorage;
     private CartStorage cartStorage;
 
+    //@revision estaria bueno armar las querys y que solo retornen los datos necesarios
+    //@revision cuidado: con tener excepciones no chequeadas
     public void run(String cartId, String productId) throws ProductInvalidSeller {
-        if ( !productStorage.getOwnerByProductId(productId).equals(cartStorage.getById(cartId).get().getSellerId())) {
+        if ( !productStorage.getOwnerByProductId(productId).equals(cartStorage.getById(cartId).get().getSellerId())) {//tira excepcion si no existe
             throw new ProductInvalidSeller(productId);
         }
     }

@@ -14,6 +14,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @RestController
+//@revision se podria agregar el {ownerId} ya que todos los endpoints lo utilizan
 @RequestMapping("/carts")
 public class CartController {
 
@@ -24,6 +25,7 @@ public class CartController {
     private final GetCartState getCartState;
     private final PurchaseCart purchaseCart;
 
+    //Estaria bueno utilizar DTO en vez de los BO
     @PostMapping("/{ownerId}/{sellerId}")
     public CartCreationBo postNewCart(@PathVariable String ownerId,
                                       @PathVariable String sellerId,

@@ -7,6 +7,8 @@ import ar.lamansys.messages.infrastructure.output.entity.AddedProductId;
 import java.util.List;
 import java.util.stream.Stream;
 
+//@revision esta interface deberia estar en application port
+//para poder cambiar de infraestructura de ser necesario
 public interface AddedProductStorage {
 
     void save(AddedProductBo addedProduct);
