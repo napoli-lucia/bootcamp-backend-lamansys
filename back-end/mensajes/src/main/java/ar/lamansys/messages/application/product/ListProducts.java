@@ -23,6 +23,7 @@ public class ListProducts {
         List<ProductBo> products = productStorage.getAllProductsByUserId(ownerId)
                 .collect(Collectors.toList());
 
+        //@revision evitar dejar codigo comentado
         //LogUtil.logResult(ownerId, products);
 
         return products;

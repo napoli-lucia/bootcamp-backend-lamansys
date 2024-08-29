@@ -12,8 +12,9 @@ public class AssertUserOwnsCart {
 
     private CartStorage cartStorage;
 
+    //@revision cuidado: con tener excepciones no chequeadas
     public void run(String cartId, String ownerId) throws UserNotOwnsCartException {
-        if ( !cartStorage.getById(cartId).get().getOwnerId().equals(ownerId) ) {
+        if ( !cartStorage.getById(cartId).get().getOwnerId().equals(ownerId) ) {//tira excepcion si no existe
             throw new UserNotOwnsCartException(cartId, ownerId);
         }
     }

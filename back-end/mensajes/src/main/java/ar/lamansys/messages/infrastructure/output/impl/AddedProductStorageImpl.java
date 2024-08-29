@@ -32,6 +32,8 @@ public class AddedProductStorageImpl implements AddedProductStorage {
         return addedProductRepository.findAllByCartId(cartId);
     }
 
+    //@revision Deberia crear el AddedProductId dentro
+    //del storage porque el application no deberia conocer la entidad y el storage si
     @Override
     public boolean exists(AddedProductId addedProductId) {
         return addedProductRepository.existsById(addedProductId);

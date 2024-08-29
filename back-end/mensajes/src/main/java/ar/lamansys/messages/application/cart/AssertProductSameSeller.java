@@ -11,8 +11,9 @@ public class AssertProductSameSeller {
 
     private ProductStorage productStorage;
 
+    //@revision cuidado: con tener excepciones no chequeadas
     public void run(String sellerId, String productId) throws ProductInvalidSeller {
-        if ( !productStorage.getOwnerByProductId(productId).equals(sellerId)) {
+        if ( !productStorage.getOwnerByProductId(productId).equals(sellerId)) {//tira excepcion si no existe
             throw new ProductInvalidSeller(productId);
         }
     }
