@@ -23,7 +23,6 @@ import java.util.stream.Collectors;
 @Service
 public class CreateCart {
 
-    private final ProductStorage productStorage;
     private final AddedProductStorage addedProduct;
     private final CartStorage cartStorage;
     private final AssertUserExists assertUserExists;

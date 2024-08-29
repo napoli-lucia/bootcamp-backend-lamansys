@@ -6,9 +6,6 @@ import ar.lamansys.messages.application.cart.exception.ProductNotExistsException
 import ar.lamansys.messages.application.user.AssertUserExists;
 import ar.lamansys.messages.application.user.exception.UserNotExistsException;
 import ar.lamansys.messages.domain.addedproduct.NewProductBo;
-import ar.lamansys.messages.infrastructure.output.AddedProductStorage;
-import ar.lamansys.messages.infrastructure.output.CartStorage;
-import ar.lamansys.messages.infrastructure.output.ProductStorage;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -24,15 +21,7 @@ import static org.mockito.Mockito.*;
 public class CreateCartTest {
 
     @Mock
-    private ProductStorage productStorage;
-    @Mock
-    private AddedProductStorage addedProduct;
-    @Mock
-    private CartStorage cartStorage;
-    @Mock
     private AssertUserExists assertUserExists;
-    @Mock
-    private AssertProductStockEnough assertProductStockEnough;
     @Mock
     private AssertProductExists assertProductExists;
     @Mock
@@ -83,7 +72,6 @@ public class CreateCartTest {
         doNothing().when(assertUserExists).run(ownerId);
         doNothing().when(assertUserExists).run(sellerId);
         doNothing().when(assertProductExists).run(productId);
-        when(productStorage.exists(productId)).thenReturn(true);
         doThrow(new ProductInvalidSeller(productId)).when(assertProductSameSeller).run(sellerId, productId);
 
         MultipleExceptions thrown = assertThrows(MultipleExceptions.class, () -> {
