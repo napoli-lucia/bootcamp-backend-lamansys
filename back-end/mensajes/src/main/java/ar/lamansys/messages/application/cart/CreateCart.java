@@ -13,7 +13,6 @@ import ar.lamansys.messages.domain.cart.CartCreationBo;
 import ar.lamansys.messages.infrastructure.output.AddedProductStorage;
 import ar.lamansys.messages.infrastructure.output.CartStorage;
 import ar.lamansys.messages.infrastructure.output.ProductStorage;
-import ar.lamansys.messages.infrastructure.output.entity.Product;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -34,11 +33,10 @@ public class CreateCart {
 
     public CartCreationBo run(String ownerId, String sellerId, List<NewProductBo> newProducts) throws MultipleExceptions, UserNotExistsException {
 
-        List<Exception> exceptions = new ArrayList<>();
-
         assertUserExists.run(ownerId);
         assertUserExists.run(sellerId);
 
+        List<Exception> exceptions = new ArrayList<>();
         List<NewProductBo> availableProducts = new ArrayList<>();
 
         for (NewProductBo newProduct : newProducts) {
@@ -47,23 +45,19 @@ public class CreateCart {
                 assertProductExists.run(newProduct.getProductId());
             } catch (ProductNotExistsException e) {
                 exceptions.add(e);
+                continue;
             }
 
-
             try {
-                if(productStorage.exists(newProduct.getProductId())) assertProductSameSeller.run(sellerId, newProduct.getProductId());
+                assertProductSameSeller.run(sellerId, newProduct.getProductId());
             } catch (ProductInvalidSeller e) {
                 exceptions.add(e);
                 continue;
             }
 
             try {
-                Optional<Product> product = productStorage.getProductByProductId(newProduct.getProductId());
-                if(product.isPresent()){
-                    assertProductStockEnough.run(newProduct.getProductId(), newProduct.getQuantity());
-                    availableProducts.add(newProduct);
-                }
-
+                assertProductStockEnough.run(newProduct.getProductId(), newProduct.getQuantity());
+                availableProducts.add(newProduct); //Si cumple se agrega a la lista de productos disponibles
             } catch (ProductStockNotEnough e) {
                 exceptions.add(e);
             }
@@ -73,7 +67,7 @@ public class CreateCart {
             throw new MultipleExceptions(exceptions);
         }
 
-        //Agrego productos disponibles
+        //Creo carrito y agrego productos disponibles
         String cartId = UUID.randomUUID().toString();
         cartStorage.save(new CartBo(cartId, ownerId, sellerId));
 
@@ -85,11 +79,6 @@ public class CreateCart {
                 .map(Throwable::getLocalizedMessage)
                 .collect(Collectors.toList());
 
-        if (!exceptions.isEmpty()){
-            return new CartCreationBo(cartId, availableProducts, exceptionMessages);
-        }
-
-        return new CartCreationBo(cartId, availableProducts, Collections.emptyList());
-
+        return new CartCreationBo(cartId, availableProducts, exceptionMessages);
     }
 }
