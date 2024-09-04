@@ -7,6 +7,7 @@ import ar.lamansys.messages.application.user.SetUserSession;
 import ar.lamansys.messages.application.user.exception.UserExistsException;
 import ar.lamansys.messages.application.user.exception.UserNotExistsException;
 import ar.lamansys.messages.application.user.exception.UserSessionNotExists;
+import ar.lamansys.messages.domain.user.AppUserBo;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -32,8 +33,8 @@ public class UserController {
     }
 
     @PostMapping
-    public ResponseEntity addUser(@RequestBody String userId) throws UserExistsException {
-        addUser.run(userId);
+    public ResponseEntity addUser(@RequestBody AppUserBo user) throws UserExistsException {
+        addUser.run(user);
         return ResponseEntity.ok().build();
     }
 
