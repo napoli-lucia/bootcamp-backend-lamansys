@@ -14,6 +14,7 @@ import ar.lamansys.messages.application.user.exception.UserNotExistsException;
 import ar.lamansys.messages.application.user.exception.UserSessionNotExists;
 import ar.lamansys.messages.domain.message.ChatMessageBo;
 import ar.lamansys.messages.domain.message.NewMessageBo;
+import ar.lamansys.messages.domain.user.AppUserBo;
 import lombok.AllArgsConstructor;
 
 
@@ -39,8 +40,8 @@ public class TestMessageApp {
         return listContacts.run();
     }
 
-    public void addUser(String userId) throws UserExistsException {
-        addUser.run(userId);
+    public void addUser(AppUserBo user) throws UserExistsException {
+        addUser.run(user);
     }
 
     public void clearData() {

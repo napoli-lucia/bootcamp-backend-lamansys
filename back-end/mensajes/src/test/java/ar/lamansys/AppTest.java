@@ -2,6 +2,7 @@ package ar.lamansys;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import ar.lamansys.messages.domain.user.AppUserBo;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,10 +20,10 @@ class AppTest {
     void setUp() throws UserNotExistsException, UserExistsException, UserSessionNotExists {
         messageApp = MessageAppConfiguration.newBean();
         messageApp.clearData();
-        messageApp.addUser("buyer");
-        messageApp.addUser("seller1");
-        messageApp.addUser("seller2");
-        messageApp.addUser("seller3");
+        messageApp.addUser(new AppUserBo("buyer", "buyer", "buyer", "buyer"));
+        messageApp.addUser(new AppUserBo("seller1", "seller1", "seller1", "seller1"));
+        messageApp.addUser(new AppUserBo("seller2", "seller2", "seller2", "seller2"));
+        messageApp.addUser(new AppUserBo("seller3", "seller3", "seller3", "seller3"));
         messageApp.setUserSession("buyer");
         messageApp.sendUserMessage(new NewMessageBo("seller1", "precio?"));
         messageApp.sendUserMessage(new NewMessageBo("seller1", "sigue disponible?"));
