@@ -1,5 +1,6 @@
 package ar.lamansys.messages.infrastructure.output.entity;
 
+import ar.lamansys.messages.domain.user.AppUserBo;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -29,8 +30,11 @@ public class AppUser {
     @Column(name = "email", nullable = false)
     private String email;
 
-    public AppUser(String id) {
-        this.id = id;
+    public AppUser(AppUserBo user) {
+        id = user.getId();
+        username = user.getUsername();
+        password = user.getPassword();
+        email = user.getEmail();
     }
 
 }
