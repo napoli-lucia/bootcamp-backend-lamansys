@@ -1,5 +1,6 @@
 package ar.lamansys.messages.infrastructure.output.impl;
 
+import ar.lamansys.messages.domain.user.AppUserBo;
 import ar.lamansys.messages.infrastructure.output.repository.AppUserRepository;
 import ar.lamansys.messages.infrastructure.output.UserStorage;
 import ar.lamansys.messages.infrastructure.output.entity.AppUser;
@@ -15,8 +16,8 @@ public class UserStorageImpl implements UserStorage {
     private final AppUserRepository appUserRepository;
 
     @Override
-    public void save(String userId) {
-        appUserRepository.save(new AppUser(userId));
+    public void save(AppUserBo user) {
+        appUserRepository.save(new AppUser(user));
     }
 
     @Override

@@ -1,9 +1,11 @@
 package ar.lamansys.messages.infrastructure.output;
 
+import ar.lamansys.messages.domain.user.AppUserBo;
+
 public interface UserStorage {
 
     void save(
-            String userId
+            AppUserBo user
     );
 
     boolean exists(

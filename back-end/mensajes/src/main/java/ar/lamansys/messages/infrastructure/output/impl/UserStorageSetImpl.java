@@ -1,5 +1,6 @@
 package ar.lamansys.messages.infrastructure.output.impl;
 
+import ar.lamansys.messages.domain.user.AppUserBo;
 import ar.lamansys.messages.infrastructure.output.UserStorage;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -53,8 +54,8 @@ public class UserStorageSetImpl implements UserStorage {
     }
 
     @Override
-    public void save(String user) {
-        users.add(user);
+    public void save(AppUserBo user) {
+        users.add(user.getId());
         saveToFile();
     }
 
