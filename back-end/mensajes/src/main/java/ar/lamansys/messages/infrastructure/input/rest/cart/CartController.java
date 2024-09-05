@@ -15,7 +15,7 @@ import java.util.List;
 
 @AllArgsConstructor
 @RestController
-@RequestMapping("/carts")
+@RequestMapping("/carts/{ownerId}")
 public class CartController {
 
     private final CreateCart createCart;
@@ -25,15 +25,14 @@ public class CartController {
     private final GetCartState getCartState;
     private final PurchaseCart purchaseCart;
 
-    @PostMapping("/{ownerId}/{sellerId}")
+    @PostMapping("/{sellerId}")
     public CartCreationBo postNewCart(@PathVariable String ownerId,
                                       @PathVariable String sellerId,
                                       @RequestBody List<NewProductBo> newProducts) throws MultipleExceptions, UserNotExistsException {
         return createCart.run(ownerId, sellerId, newProducts);
-        //return ResponseEntity.ok("Cart created successfully");
     }
 
-    @PostMapping("/addProduct/{ownerId}/{cartId}")
+    @PostMapping("/addProduct/{cartId}")
     public ResponseEntity postNewProductInCart(@PathVariable String ownerId,
                                                @PathVariable String cartId,
                                                @RequestBody NewProductBo newProduct) throws
@@ -42,7 +41,7 @@ public class CartController {
         return ResponseEntity.ok("Product added to cart successfully");
     }
 
-    @PutMapping("/editProduct/{ownerId}/{cartId}")
+    @PutMapping("/{cartId}")
     public ResponseEntity editProductInCart(@PathVariable String ownerId,
                                             @PathVariable String cartId,
                                             @RequestBody NewProductBo editedProduct) throws
@@ -51,7 +50,7 @@ public class CartController {
         return ResponseEntity.ok("Product edited quantity in cart successfully");
     }
 
-    @DeleteMapping("/deleteProduct/{ownerId}/{cartId}/{productId}")
+    @DeleteMapping("/{cartId}/{productId}")
     public ResponseEntity deleteProductInCart(@PathVariable String ownerId,
                                               @PathVariable String cartId,
                                               @PathVariable String productId) throws
@@ -60,13 +59,13 @@ public class CartController {
         return ResponseEntity.ok("Product in cart deleted successfully");
     }
 
-    @GetMapping("/state/{ownerId}/{cartId}")
+    @GetMapping("/{cartId}")
     public CartStateBo getCartState(@PathVariable String ownerId, @PathVariable String cartId) throws
             CartNotExistsException, UserNotExistsException, UserNotOwnsCartException {
         return getCartState.run(ownerId, cartId);
     }
 
-    @GetMapping("/purchase/{ownerId}/{cartId}")
+    @GetMapping("/purchase/{cartId}")
     public ResponseEntity purchaseCart(@PathVariable String ownerId, @PathVariable String cartId) throws
             CartNotExistsException, UserNotExistsException, UserNotOwnsCartException, MultipleExceptions {
         Float totalPrice = purchaseCart.run(ownerId, cartId);
