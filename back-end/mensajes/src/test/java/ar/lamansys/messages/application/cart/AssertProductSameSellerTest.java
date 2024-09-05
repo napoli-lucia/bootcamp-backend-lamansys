@@ -1,7 +1,6 @@
 package ar.lamansys.messages.application.cart;
 
 import ar.lamansys.messages.application.cart.exception.ProductInvalidSeller;
-import ar.lamansys.messages.application.cart.exception.ProductNotExistsException;
 import ar.lamansys.messages.infrastructure.output.ProductStorage;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

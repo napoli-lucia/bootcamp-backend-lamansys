@@ -1,4 +1,4 @@
-package ar.lamansys.messages.application.cart.exception;
+package ar.lamansys.messages.application.product.exception;
 
 import lombok.Getter;
 

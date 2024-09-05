@@ -2,7 +2,8 @@ package ar.lamansys.messages.application.cart;
 
 import ar.lamansys.messages.application.cart.exception.MultipleExceptions;
 import ar.lamansys.messages.application.cart.exception.ProductInvalidSeller;
-import ar.lamansys.messages.application.cart.exception.ProductNotExistsException;
+import ar.lamansys.messages.application.product.AssertProductExists;
+import ar.lamansys.messages.application.product.exception.ProductNotExistsException;
 import ar.lamansys.messages.application.cart.exception.ProductStockNotEnough;
 import ar.lamansys.messages.application.user.AssertUserExists;
 import ar.lamansys.messages.application.user.exception.UserNotExistsException;
@@ -12,7 +13,6 @@ import ar.lamansys.messages.domain.addedproduct.NewProductBo;
 import ar.lamansys.messages.domain.cart.CartCreationBo;
 import ar.lamansys.messages.infrastructure.output.AddedProductStorage;
 import ar.lamansys.messages.infrastructure.output.CartStorage;
-import ar.lamansys.messages.infrastructure.output.ProductStorage;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

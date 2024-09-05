@@ -2,6 +2,7 @@ package ar.lamansys.messages.infrastructure.input.rest.cart;
 
 import ar.lamansys.messages.application.cart.*;
 import ar.lamansys.messages.application.cart.exception.*;
+import ar.lamansys.messages.application.product.exception.ProductNotExistsException;
 import ar.lamansys.messages.application.user.exception.UserNotExistsException;
 import ar.lamansys.messages.domain.addedproduct.NewProductBo;
 import ar.lamansys.messages.domain.cart.CartCreationBo;

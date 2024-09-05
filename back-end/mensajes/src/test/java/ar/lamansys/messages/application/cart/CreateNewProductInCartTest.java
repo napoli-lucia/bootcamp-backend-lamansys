@@ -1,6 +1,8 @@
 package ar.lamansys.messages.application.cart;
 
 import ar.lamansys.messages.application.cart.exception.*;
+import ar.lamansys.messages.application.product.AssertProductExists;
+import ar.lamansys.messages.application.product.exception.ProductNotExistsException;
 import ar.lamansys.messages.application.user.AssertUserExists;
 import ar.lamansys.messages.application.user.exception.UserNotExistsException;
 import ar.lamansys.messages.domain.addedproduct.AddedProductBo;
