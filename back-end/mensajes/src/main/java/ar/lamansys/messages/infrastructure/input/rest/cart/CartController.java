@@ -24,6 +24,7 @@ public class CartController {
     private final DeleteProductInCart deleteProductInCart;
     private final GetCartState getCartState;
     private final PurchaseCart purchaseCart;
+    private final DeleteAllProductsInCart deleteAllProductsInCart;
 
     @PostMapping("/{sellerId}")
     public CartCreationBo postNewCart(@PathVariable String ownerId,
@@ -70,6 +71,14 @@ public class CartController {
             CartNotExistsException, UserNotExistsException, UserNotOwnsCartException, MultipleExceptions {
         Float totalPrice = purchaseCart.run(ownerId, cartId);
         return ResponseEntity.ok(String.format("Cart purchase successfully. Total price: %s",totalPrice));
+    }
+
+    @DeleteMapping("/{cartId}")
+    public ResponseEntity deleteAllProductsInCart(@PathVariable String ownerId,
+                                              @PathVariable String cartId) throws
+            CartNotExistsException, UserNotExistsException, UserNotOwnsCartException, ProductNotExistsInCartException {
+        deleteAllProductsInCart.run(ownerId, cartId);
+        return ResponseEntity.ok("All products in cart were deleted successfully");
     }
 
 }
