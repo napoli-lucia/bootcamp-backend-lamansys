@@ -3,9 +3,9 @@ package ar.lamansys.messages.application.product.exception;
 import lombok.Getter;
 
 @Getter
-public class InvalidSeller extends Exception{
+public class InvalidSellerException extends Exception{
 
-    public InvalidSeller() {
+    public InvalidSellerException() {
         super("Invalid seller: You are not the owner of the product.");
     }
 }

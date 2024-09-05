@@ -1,6 +1,7 @@
 package ar.lamansys.messages;
 
 import ar.lamansys.messages.application.cart.exception.*;
+import ar.lamansys.messages.application.product.exception.InvalidSellerException;
 import ar.lamansys.messages.application.product.exception.ProductExistsException;
 import ar.lamansys.messages.application.product.exception.ProductNotExistsException;
 import ar.lamansys.messages.application.user.exception.UserExistsException;
@@ -36,7 +37,7 @@ public class MessageExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getLocalizedMessage());
     }
 
-    @ExceptionHandler(UserNotOwnsCartException.class)
+    @ExceptionHandler({UserNotOwnsCartException.class, InvalidSellerException.class})
     public ResponseEntity<String> unauthorizedHandler(Exception ex){
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ex.getLocalizedMessage());
     }
