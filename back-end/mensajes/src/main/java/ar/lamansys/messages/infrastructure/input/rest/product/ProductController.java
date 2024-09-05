@@ -4,6 +4,7 @@ import ar.lamansys.messages.application.product.AddNewProductToSell;
 import ar.lamansys.messages.application.product.DeleteProductToSell;
 import ar.lamansys.messages.application.product.GetProductInfo;
 import ar.lamansys.messages.application.product.ListProducts;
+import ar.lamansys.messages.application.product.exception.InvalidSellerException;
 import ar.lamansys.messages.application.product.exception.ProductExistsException;
 import ar.lamansys.messages.application.product.exception.ProductNotExistsException;
 import ar.lamansys.messages.application.user.exception.UserNotExistsException;
@@ -30,15 +31,15 @@ public class ProductController {
         return listProducts.run(ownerId);
     }
 
-    @PostMapping
-    public ResponseEntity addNewProductToSell(@RequestBody ProductBo newProduct) throws UserNotExistsException, ProductExistsException {
-        addNewProductToSell.run(newProduct);
+    @PostMapping("/{sellerId}")
+    public ResponseEntity addNewProductToSell(@PathVariable String sellerId, @RequestBody ProductBo newProduct) throws UserNotExistsException, ProductExistsException, InvalidSellerException {
+        addNewProductToSell.run(sellerId, newProduct);
         return ResponseEntity.ok("New product added to sell successfully");
     }
 
-    @DeleteMapping("/{productId}")
-    public ResponseEntity deleteProductToSell(@PathVariable String productId) throws ProductNotExistsException {
-        deleteProductToSell.run(productId);
+    @DeleteMapping("/{sellerId}/{productId}")
+    public ResponseEntity deleteProductToSell(@PathVariable String sellerId, @PathVariable String productId) throws ProductNotExistsException, UserNotExistsException, InvalidSellerException {
+        deleteProductToSell.run(sellerId, productId);
         return ResponseEntity.ok("Product deleted successfully");
     }
 
