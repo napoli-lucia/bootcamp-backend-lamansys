@@ -1,6 +1,8 @@
 package ar.lamansys.messages;
 
 import ar.lamansys.messages.application.cart.exception.*;
+import ar.lamansys.messages.application.product.exception.ProductExistsException;
+import ar.lamansys.messages.application.product.exception.ProductNotExistsException;
 import ar.lamansys.messages.application.user.exception.UserExistsException;
 import ar.lamansys.messages.application.user.exception.UserNotExistsException;
 import ar.lamansys.messages.application.user.exception.UserSessionNotExists;
@@ -29,7 +31,7 @@ public class MessageExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getLocalizedMessage());
     }
 
-    @ExceptionHandler({UserExistsException.class, ProductStockNotEnough.class, ProductInvalidSeller.class, ProductNotExistsInCartException.class})
+    @ExceptionHandler({UserExistsException.class, ProductStockNotEnough.class, ProductInvalidSeller.class, ProductNotExistsInCartException.class, ProductExistsException.class})
     public ResponseEntity<String> existsHandler(Exception ex){
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getLocalizedMessage());
     }
