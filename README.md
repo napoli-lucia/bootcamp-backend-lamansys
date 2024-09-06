@@ -1,6 +1,67 @@
-# Informe Proyecto Ecommerce
+# Proyecto Ecommerce
 
-## Integrantes
+
+## Entrega Individual: Lucía Napoli
+
+Se agregan nuevos endpoints en la API para la gestión de productos y carritos.
+
+🔗[Jira Sprint 2 - Instancia Individual](https://lamansys-grupo2.atlassian.net/browse/EC-158)
+
+## User Stories
+
+### Como usuario, quiero agregar un nuevo producto, para poder venderlo
+El usuario del sistema debe poder agregar un nuevo producto, especificando el id del producto, el id del usuario dueño del producto, nombre del producto, el stock disponible y el precio unitario del producto.
+
+#### Criterios de aceptación:
+* La API debe permitir crear un producto especificando el usuario que lo está creando.
+* El sistema debe validar que el producto tenga como dueño al usuario que lo está creando.
+
+> POST /products/{sellerId}
+
+**Body**
+```json
+{
+  "productId": "A6",
+  "ownerId": "7",
+  "productName": "Remera",
+  "stock": 20,
+  "unityPrice": 7000
+}
+```
+
+### Como usuario, quiero eliminar producto, para que ya no exista para vender
+El usuario del sistema debe poder eliminar un producto existente, especificando el id del producto y el id del usuario dueño del producto.
+
+#### Criterios de aceptación:
+* La API debe permitir eliminar un producto especificando el usuario que lo está eliminando.
+* El sistema debe validar que el producto tenga como dueño al usuario que lo está eliminando.
+
+> DELETE /products/{sellerId}/{productId}
+
+### Como usuario, quiero obtener información sobre un producto en especifico
+El usuario del sistema debe poder obtener información sobre un producto en especifico, especificando el id del producto.
+
+#### Criterios de aceptación:
+* La API debe devolver la información del producto solicitado.
+* Si el producto no existe, la API debe devolver un mensaje de error.
+
+> GET /products/info/{productId}
+
+### Como usuario, quiero poder eliminar todos los productos de mi carrito, para tener un carrito vacío
+El usuario del sistema debe poder eliminar todos los productos de su carrito de compra, especificando el id del usuario dueño del carrito y el id del carrito.
+
+#### Criterios de aceptación:
+* La API debe permitir eliminar todos los productos de un carrito especificando el carrito que se está eliminando y el usuario que lo está eliminando.
+* El sistema debe validar que el carrito tenga como dueño al usuario que lo está eliminando.
+* El sistema debe validar que el carrito exista.
+
+> DELETE /carts/{ownerId}/{cartId}
+
+----
+
+# Entrega Grupal
+
+### Integrantes
 - Emiliana Girardi
 - Lucía Napoli
 
