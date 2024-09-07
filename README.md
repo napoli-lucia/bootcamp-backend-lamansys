@@ -57,6 +57,16 @@ El usuario del sistema debe poder eliminar todos los productos de su carrito de 
 
 > DELETE /carts/{ownerId}/{cartId}
 
+### Como usuario, quiero editar el stock de un producto que vendo, para tener el stock actualizado
+El usuario del sistema debe poder editar el stock de un producto que vende, especificando el id del producto y el id del usuario dueño del producto.
+
+#### Criterios de aceptación:
+* La API debe permitir editar el stock de un producto especificando el usuario que lo está editando.
+* El sistema debe validar que el producto tenga como dueño al usuario que lo está editando.
+* El sistema debe validar que el producto exista.
+
+> PUT /products/{ownerId}/{productId}/updateStock
+
 ----
 
 # Entrega Grupal
