@@ -1,14 +1,12 @@
 package ar.lamansys.messages.infrastructure.input.rest.product;
 
-import ar.lamansys.messages.application.product.AddNewProductToSell;
-import ar.lamansys.messages.application.product.DeleteProductToSell;
-import ar.lamansys.messages.application.product.GetProductInfo;
-import ar.lamansys.messages.application.product.ListProducts;
+import ar.lamansys.messages.application.product.*;
 import ar.lamansys.messages.application.product.exception.InvalidSellerException;
 import ar.lamansys.messages.application.product.exception.ProductExistsException;
 import ar.lamansys.messages.application.product.exception.ProductNotExistsException;
 import ar.lamansys.messages.application.user.exception.UserNotExistsException;
 import ar.lamansys.messages.domain.product.ProductBo;
+import ar.lamansys.messages.domain.product.ProductStockBo;
 import ar.lamansys.messages.infrastructure.output.entity.Product;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +23,7 @@ public class ProductController {
     private final AddNewProductToSell addNewProductToSell;
     private final DeleteProductToSell deleteProductToSell;
     private final GetProductInfo getProductInfo;
+    private final UpdateProductStock updateProductStock;
 
     @GetMapping("/{ownerId}")
     public List<ProductBo> getAllProductsByOwnerId(@PathVariable String ownerId) throws UserNotExistsException {
@@ -46,5 +45,11 @@ public class ProductController {
     @GetMapping("/info/{productId}")
     public Optional<Product> getProductInfo(@PathVariable String productId) throws ProductNotExistsException {
         return getProductInfo.run(productId);
+    }
+
+    @PutMapping("/{sellerId}/{productId}/updateStock")
+    public ResponseEntity updateProductStock(@PathVariable String sellerId, @PathVariable String productId, @RequestBody ProductStockBo newStock) throws ProductNotExistsException, UserNotExistsException, InvalidSellerException {
+        updateProductStock.run(sellerId, productId, newStock);
+        return ResponseEntity.ok("Product stock updated successfully");
     }
 }
