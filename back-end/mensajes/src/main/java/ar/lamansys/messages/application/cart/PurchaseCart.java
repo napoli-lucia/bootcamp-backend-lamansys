@@ -6,8 +6,6 @@ import ar.lamansys.messages.application.cart.exception.ProductStockNotEnough;
 import ar.lamansys.messages.application.cart.exception.UserNotOwnsCartException;
 import ar.lamansys.messages.application.user.AssertUserExists;
 import ar.lamansys.messages.application.user.exception.UserNotExistsException;
-import ar.lamansys.messages.domain.cart.CartStateBo;
-import ar.lamansys.messages.domain.product.ProductStateBo;
 import ar.lamansys.messages.infrastructure.output.AddedProductStorage;
 import ar.lamansys.messages.infrastructure.output.CartStorage;
 import ar.lamansys.messages.infrastructure.output.ProductStorage;
@@ -18,7 +16,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @AllArgsConstructor
 @Service
@@ -66,7 +63,12 @@ public class PurchaseCart {
 
         //Actualizo el stock de los productos
         for (AddedProduct product : products) {
-            productStorage.updateStock(product.getAddedProductId().getProductId(), product.getQuantity());
+            String productId = product.getAddedProductId().getProductId();
+            Integer quantity = product.getQuantity();
+
+            Product updatedProduct = productStorage.getProductByProductId(productId).get();
+            updatedProduct.setStock(updatedProduct.getStock() - quantity);
+            productStorage.updateProduct(updatedProduct);
         }
 
         return totalPrice;

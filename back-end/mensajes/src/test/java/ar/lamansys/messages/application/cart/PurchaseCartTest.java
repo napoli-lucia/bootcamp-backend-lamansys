@@ -7,10 +7,12 @@ import ar.lamansys.messages.application.cart.exception.UserNotOwnsCartException;
 import ar.lamansys.messages.application.user.AssertUserExists;
 import ar.lamansys.messages.application.user.exception.UserNotExistsException;
 import ar.lamansys.messages.domain.addedproduct.AddedProductBo;
+import ar.lamansys.messages.domain.product.ProductBo;
 import ar.lamansys.messages.infrastructure.output.AddedProductStorage;
 import ar.lamansys.messages.infrastructure.output.CartStorage;
 import ar.lamansys.messages.infrastructure.output.ProductStorage;
 import ar.lamansys.messages.infrastructure.output.entity.AddedProduct;
+import ar.lamansys.messages.infrastructure.output.entity.Product;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,6 +21,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -63,11 +66,18 @@ public class PurchaseCartTest {
         doNothing().when(assertUserExists).run(ownerId);
         doNothing().when(assertCartExists).run(cartId);
         doNothing().when(assertUserOwnsCart).run(cartId, ownerId);
+        doNothing().when(assertProductStockEnough).run("product1", 2);
+        doNothing().when(assertProductStockEnough).run("product2", 3);
 
         // Los productos ya están inicializados en el setup
         when(addedProductStorage.findAllByCartId(cartId)).thenReturn(Arrays.asList(product1, product2));
         when(productStorage.getUnityPriceByProductId("product1")).thenReturn(10.0f);
         when(productStorage.getUnityPriceByProductId("product2")).thenReturn(20.0f);
+
+        ProductBo product1Stock = new ProductBo("product1", "owner1", "Product 1", 10, 10.0f);
+        ProductBo product2Stock = new ProductBo("product2", "owner1", "Product 2", 15, 20.0f);
+        when(productStorage.getProductByProductId("product1")).thenReturn(Optional.of(new Product(product1Stock)));
+        when(productStorage.getProductByProductId("product2")).thenReturn(Optional.of(new Product(product2Stock)));
 
         // Ejecutar el método bajo prueba
         float totalPrice = purchaseCart.run(ownerId, cartId);
@@ -76,8 +86,10 @@ public class PurchaseCartTest {
         assertEquals(2 * 10.0f + 3 * 20.0f, totalPrice, 0.001); // Agregamos un delta para comparación de floats
         verify(addedProductStorage).deleteAllByCartId(cartId);
         verify(cartStorage).delete(cartId);
-        verify(productStorage).updateStock("product1", 2);
-        verify(productStorage).updateStock("product2", 3);
+        verify(productStorage).updateProduct(argThat(product ->
+                product.getProductId().equals("product1") && product.getStock() == 8));  // Stock después de la compra (10 - 2)
+        verify(productStorage).updateProduct(argThat(product ->
+                product.getProductId().equals("product2") && product.getStock() == 12)); // Stock después de la compra (15 - 3)
     }
 
 
