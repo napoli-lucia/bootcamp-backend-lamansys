@@ -24,5 +24,6 @@ public interface ProductStorage {
 
     boolean exists(String productId);
 
-    void updateStock(String productId, Integer quantity);
+    void updateProduct(Product product);
+
 }
